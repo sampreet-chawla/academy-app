@@ -5,7 +5,7 @@ require('dotenv').config();
 const { PORT = 3000, NODE_ENV = 'development' } = process.env;
 
 //MONGO CONNECTION
-const mongoose = require('./db/conn');
+//const mongoose = require('./db/conn');
 
 //CORS
 const cors = require('cors');
@@ -17,7 +17,8 @@ const app = express();
 
 //OTHER IMPORTS
 const morgan = require('morgan');
-//const studentRouter = require('./controllers/student');
+const classRouter = require('./controllers/classRoutes');
+const studentRouter = require('./controllers/studentRoutes');
 
 ////////////
 //MIDDLEWARE
@@ -31,13 +32,14 @@ app.use(morgan('tiny')); //logging
 //Routes and Routers
 //////////////
 
-//Route for testing server is working
+//Default Route for testing server is working
 app.get('/', (req, res) => {
 	res.json({ hello: 'Welcome to Our Academy!' });
 });
 
-// Dog Routes send to dog router
-//app.use('/student', studentRouter);
+// Custom routes
+app.use('/api/classes', classRouter);
+app.use('/api/students', studentRouter);
 
 //LISTENER
 app.listen(PORT, () => {

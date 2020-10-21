@@ -1,63 +1,53 @@
-[![General Assembly Logo](https://camo.githubusercontent.com/1a91b05b8f4d44b5bbfb83abac2b0996d8e26c92/687474703a2f2f692e696d6775722e636f6d2f6b6538555354712e706e67)](https://generalassemb.ly/education/web-development-immersive)
+# ACADEMY API
 
-# MERN Lab
+Backend Code developed in Express-Mongoose, deployed in Heroku
+It uses MongoDB Database deployed in Atlas Cluster
 
-Get ready to build your first MERN app! For this lab, your goal is to build a
-MERN app with Express on the back-end and React on the front-end. 
+## API Routes
 
-## Prerequisites
+where BACKEND_BASE_URL is -
 
-- Mongo, Mongoose, Express and Node
-- React, Components, State and Props
-- React Component Lifecycle Methods (useEffect)
-- React Router
-- A pull request will be used for submission of this assignment
+- Load Seed Data in DB - BACKEND_BASE_URL/api/classes/seed
 
-## Instructions
+- GET All Classes with Student Data - GET BACKEND_BASE_URL/api/classes/
 
-1.  Fork and Clone this repo
-1.  Fulfill the listed requirements.
-1.  Create a Pull request on this repository with links to your repo(s).
+- Create a Class - POST BACKEND_BASE_URL/api/classes/
 
-Unlike most labs, for this one you will submit your work by **making a pull request**. If a pull request has not been performed up until now then the instructor will walk the class through performing one at the completion of this readme.
+Request Body of JSON type -
 
-This repo should be used as the backed server. 
+```
+{
+    "className": "UX Design Immersive"
+}
+```
 
-Create another repo for the Frontend and add a link to that repo when you make the Pull request. 
+- Add a student - PUT BACKEND_BASE_URL/api/classes/id/5f8fbed30c158c8266539102/addStudent/
 
-## Requirements
+Request Body of JSON type -
 
-Here are the requirment:
+```
+{
+    "studentName": "Harry Potter",
+    "age":17
+}
+```
 
-- Build a simple MERN - Mongo-Express-React-Node App
-- Must contain related models (Owner/Fruits or Owner/Dogs)
-- React on the front end must include `React Router`
-- Node on the backend must be configured as a `RESTFull` API
-- Both servers much be deployed
+Add the student into students collection and also into the class.
 
-### Backend
-Your app should have a back-end build with Express that persists data to a
-MongoDB database using Mongoose. Your Express app should return JSON data to
-your React front-end.
+- Delete a Student - PUT BACKEND_BASE_URL/api/classes/id/5f8fbed30c158c8266539102/removeStudent/5f8fc48488c830832262e6c8
 
-Backend server must be deployed via Heroku.
+Deletes the student from students collection and also from the class.
 
-Backend must be configued for CORS.
+- Edit a Student - PUT BACKEND_BASE_URL/api/students/id/5f8fc48488c830832262e6c8
+  Request Body of JSON type -
 
-### Frontend
-The front-end for your simple MERN app should be built with React. Instead of using `fetch` you will now use `axios` to
-get data from your Express back-end.
+```
+{
+    "studentName": "Harry Potter",
+    "age":20
+}
+```
 
-Use React Router to build out separate 'views' for creating, editing, updating and deleting instances of your model.
+Updates the student details in students collection.
 
-Your goal should be to have full CRUD functionality on one model with a React front-end and Express back-end.
-
-Frontend server must be deployed via Netlify.
-
-## Bonus
-
-- Style it and make Kenny proud!!!
-- Add `useContext` to create a global state
-- Add a third model as a sub-document. Finish full CRUD on your first two models before
-adding any additional subdocuments. 
-
+- Delete a Class - Removes all students from the class
