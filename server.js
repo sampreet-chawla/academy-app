@@ -17,7 +17,7 @@ const app = express();
 
 //OTHER IMPORTS
 const morgan = require('morgan');
-const classRouter = require('./controllers/classRoutes');
+const cohortRouter = require('./controllers/cohortRoutes');
 const studentRouter = require('./controllers/studentRoutes');
 
 ////////////
@@ -38,7 +38,7 @@ app.get('/', (req, res) => {
 });
 
 // Custom routes
-app.use('/api/classes', classRouter);
+app.use('/api/cohorts', cohortRouter);
 app.use('/api/students', studentRouter);
 
 //LISTENER

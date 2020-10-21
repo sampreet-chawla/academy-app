@@ -1,14 +1,14 @@
 const { Schema, model } = require('../db/conn');
 
-const ClassSchema = Schema(
+const CohortSchema = Schema(
 	{
-		className: { type: String, required: true },
+		cohortName: { type: String, required: true },
 		// year: { type: Number, required: true },
 		students: [{ ref: 'Student', type: Schema.Types.ObjectId }],
 	},
 	{ timestamps: true }
 );
 
-const Class = model('Class', ClassSchema);
+const Cohort = model('Cohort', CohortSchema);
 
-module.exports = Class;
+module.exports = Cohort;

@@ -1,12 +1,12 @@
-const Class = require('../models/class');
+const Cohort = require('../models/cohort');
 const Student = require('../models/student');
 
 const loadSeedData = () => {
-	Class.find({}).deleteMany(() => {
+	Cohort.find({}).deleteMany(() => {
 		Student.find({})
 			.deleteMany(() => {
-				Class.create({
-					className: 'Software Engineering Immersive',
+				Cohort.create({
+					cohortName: 'Software Engineering Immersive',
 				}).then((newClass) => {
 					Promise.all([
 						Student.create({
@@ -25,8 +25,8 @@ const loadSeedData = () => {
 						newClass.save();
 					});
 				});
-				Class.create({
-					className: 'Data Science Immersive',
+				Cohort.create({
+					cohortName: 'Data Science Immersive',
 				}).then((newClass) => {
 					Promise.all([
 						Student.create({
