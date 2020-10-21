@@ -19,7 +19,7 @@ router.get('/seed', async (req, res) => {
 // GET ROUTE - ACTION INDEX
 router.get('/', async (req, res) => {
 	try {
-		const data = await Cohort.find({});
+		const data = await Cohort.find({}).populate('students');
 		res.json({ status: 200, data: data });
 	} catch (err) {
 		res.json({ status: 500, error: err.message });
@@ -41,10 +41,10 @@ router.get('/id/:id', async (req, res) => {
 router.post('/', async (req, res) => {
 	try {
 		await Cohort.create(req.body);
-		const data = await Cohort.find({});
+		const data = await Cohort.find({}).populate('students');
 		res.json({ status: 200, data: data });
 	} catch (err) {
-		res.json({ status: 200, error: err.message });
+		res.json({ status: 500, error: err.message });
 	}
 });
 
@@ -53,10 +53,10 @@ router.post('/', async (req, res) => {
 router.put('/id/:id', async (req, res) => {
 	try {
 		await Cohort.findByIdAndUpdate(req.params.id, req.body, { new: true });
-		const data = await Cohort.find({});
+		const data = await Cohort.find({}).populate('students');
 		res.json({ status: 200, data: data });
 	} catch (err) {
-		res.json({ status: 200, error: err.message });
+		res.json({ status: 500, error: err.message });
 	}
 });
 
@@ -69,10 +69,10 @@ router.put('/id/:id/addStudent', async (req, res) => {
 			{ $addToSet: { students: student.id } },
 			{ new: true }
 		);
-		const data = await Cohort.find({});
+		const data = await Cohort.find({}).populate('students');
 		res.json({ status: 200, data: data });
 	} catch (err) {
-		res.json({ status: 200, error: err.message });
+		res.json({ status: 500, error: err.message });
 	}
 });
 
@@ -88,11 +88,11 @@ router.put('/id/:id/removeStudent/:studentId', async (req, res) => {
 		const data = await Cohort.find({}).populate('students');
 		res.json({ status: 200, data: data });
 	} catch (err) {
-		res.json({ status: 200, error: err.message });
+		res.json({ status: 500, error: err.message });
 	}
 });
 
-// Delete Class
+// Delete Cohort
 router.delete('/id/:id', async (req, res) => {
 	try {
 		const cohortRemoved = await Cohort.findByIdAndRemove({
@@ -103,7 +103,7 @@ router.delete('/id/:id', async (req, res) => {
 		const data = await Cohort.find({}).populate('students');
 		res.json({ status: 200, data: data });
 	} catch (err) {
-		res.json({ status: 200, error: err.message });
+		res.json({ status: 500, error: err.message });
 	}
 });
 
